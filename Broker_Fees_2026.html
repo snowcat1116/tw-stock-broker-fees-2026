@@ -1,0 +1,474 @@
+<!-- 版權宣告：本網頁原始碼與資料彙總均由 雪貓 (Snowcat) 製作與維護，版權所有。 -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>2026 台灣券商手續費比較表 - BY 雪貓</title>
+    
+    <meta name="description" content="2026年最新台灣主要券商手續費、零股交易與定期定額買入優惠對比總表。由雪貓(Snowcat)彙總整理，幫助投資人快速找到最划算的開戶方案。內建即時股價手續費計算機。">
+    <meta name="keywords" content="券商手續費, 台灣券商, 零股交易, 定期定額, 股票開戶, 手續費計算機, 2026券商, 新光證券, 富邦證券, 永豐大戶投, 雪貓">
+    <meta name="author" content="雪貓 (Snowcat)">
+    
+    <meta property="og:title" content="2026 台灣券商手續費比較表 - BY 雪貓">
+    <meta property="og:description" content="幫你整理好2026最新台股券商手續費折扣！內建即時股價抓取與手續費精算機。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:site_name" content="雪貓的投資工具箱">
+    
+    <style>
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f9;
+            color: #2d3748;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #1a3a5f;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #1a3a5f;
+            margin: 0;
+            font-size: 28px;
+            line-height: 1.3;
+        }
+        p.subtitle {
+            color: #4a5568;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .author-badge {
+            display: inline-block;
+            background-color: #f59e0b;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
+            margin-bottom: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;
+            min-width: 900px;
+        }
+        th {
+            background-color: #1a3a5f;
+            color: white;
+            font-weight: bold;
+            padding: 16px 12px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        tr:hover {
+            background-color: #edf2f7;
+        }
+        .broker-name {
+            font-weight: bold;
+            color: #2c5282;
+            font-size: 20px;
+        }
+        .highlight-gold {
+            background-color: #fff9db;
+            color: #856404;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 2px 0;
+        }
+        .min-fee {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+        .calc-wrapper {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .calc-wrapper h2 {
+            color: #1a3a5f;
+            margin-top: 0;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 10px;
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+        .input-group input, .input-group select {
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        .input-group button {
+            margin-top: 8px;
+            padding: 10px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .input-group button:hover {
+            background-color: #2563eb;
+        }
+        .result-box {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .result-item {
+            text-align: center;
+            margin: 10px;
+        }
+        .result-item span {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #f59e0b;
+            margin-top: 5px;
+        }
+        .footer-info {
+            margin-top: 30px;
+            font-size: 15px;
+            color: #718096;
+            text-align: right;
+            line-height: 1.8;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; border-radius: 8px; }
+            h1 { font-size: 24px; }
+            p.subtitle { font-size: 16px; }
+            table { font-size: 16px; }
+            .broker-name { font-size: 18px; }
+            th, td { padding: 12px 8px; }
+            .footer-info { text-align: center; }
+            .result-box { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="author-badge">資料彙總 BY 雪貓</div>
+            <h1>2026 台灣券商手續費對比總表</h1>
+            <p class="subtitle">一般交易 / 零股交易 / 定期定額 專業客戶參考手冊</p>
+        </header>
+        
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>券商名稱</th>
+                        <th>一般交易 (牌價)</th>
+                        <th>零股交易 (牌價)</th>
+                        <th>定期定額買入</th>
+                        <th>備註與條件</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="broker-name">新光證券</td>
+                        <td><span class="highlight-gold">100萬內 0元</span><br>超過或1年後 2.8折</td>
+                        <td><span class="min-fee">最低 1元</span><br>(優惠同左)</td>
+                        <td><span class="highlight-gold">均 1元</span><br>(每筆2萬內)</td>
+                        <td>限新戶, 限1年內優惠</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">富邦證券</td>
+                        <td><span class="highlight-gold">1.8折</span><br>(100萬內)</td>
+                        <td><span class="min-fee">最低 1元</span></td>
+                        <td><span class="highlight-gold">均 1元</span><br>(每筆1萬內)</td>
+                        <td>新戶線上開戶, 月退 (~2026/12/31)</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">永豐金 (大戶投)</td>
+                        <td><span class="highlight-gold">2折</span><br>(100萬內)</td>
+                        <td><span class="min-fee">最低 1元</span></td>
+                        <td><span class="highlight-gold">均 1元</span><br>(豐存股)</td>
+                        <td>限線上開戶, 月退 (~2026/12/31)</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">統一 (UMONEY)</td>
+                        <td><span class="highlight-gold">25折 ~ 1.68折</span><br><span class="min-fee">最低 1元</span></td>
+                        <td><span class="highlight-gold">25折 ~ 1.68折</span><br><span class="min-fee">最低 1元</span></td>
+                        <td>無</td>
+                        <td>折扣隨庫存與餘額變動, 無專屬營業員</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">國泰證券</td>
+                        <td>2.8折<br><span class="min-fee">最低 1元</span></td>
+                        <td>2.8折<br><span class="min-fee">最低 1元</span></td>
+                        <td><span class="highlight-gold">均 1元</span></td>
+                        <td>無專屬營業員 (~2026/12/31)</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">國票證券</td>
+                        <td>2.8折<br>最低 20元</td>
+                        <td>2.8折<br><span class="min-fee">最低 1元</span></td>
+                        <td>無</td>
+                        <td>限線上開戶, 月退</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">台新證券</td>
+                        <td>3折<br>最低 20元</td>
+                        <td>3折<br><span class="min-fee">最低 1元</span></td>
+                        <td>均 1元<br>(每筆2萬內)</td>
+                        <td>新戶線上開戶 (~2026/3/31)<br><span class="min-fee">2026/4/6 已合併元富證券</span></td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">台銀證券</td>
+                        <td>3.5折<br>最低 20元</td>
+                        <td>3.5折<br><span class="min-fee">最低 1元</span></td>
+                        <td>均 1元</td>
+                        <td>(~2026/12/31)</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">玉山證券</td>
+                        <td>3.8折 ~ 6折<br><span class="min-fee">最低 1元</span></td>
+                        <td>3.8折 ~ 6折<br><span class="min-fee">最低 1元</span></td>
+                        <td>均 1元<br>(每筆2萬內)</td>
+                        <td>折扣依下單金額變動</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">第一金證券</td>
+                        <td>6折<br><span class="min-fee">最低 1元</span></td>
+                        <td><span class="highlight-gold">1.8折</span><br><span class="min-fee">最低 1元</span></td>
+                        <td>均 1元</td>
+                        <td>零股優惠極大 (~2026/12/31)</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">凱基證券</td>
+                        <td>6折<br>最低 20元</td>
+                        <td>6折<br>最低 20元</td>
+                        <td>均 1元</td>
+                        <td>新戶台美股合開 25折 (~2026/3/31)</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">元大證券</td>
+                        <td>6折<br>最低 20元</td>
+                        <td>6折<br><span class="min-fee">最低 1元</span></td>
+                        <td>均 1元</td>
+                        <td>市場龍頭, 系統穩定</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">中國信託證</td>
+                        <td>6折<br>最低 20元</td>
+                        <td>6折<br>最低 20元</td>
+                        <td>均 1元</td>
+                        <td>2~5萬1.3折, 5萬以上2.6折</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">宏遠 / 華南永昌</td>
+                        <td>6.5折<br><span class="min-fee">最低 1元</span></td>
+                        <td>6.5折<br><span class="min-fee">最低 1元</span></td>
+                        <td>均 1元</td>
+                        <td>各家有不同交易額度限制</td>
+                    </tr>
+                    <tr>
+                        <td class="broker-name">群益證券</td>
+                        <td>65折<br>最低 20元</td>
+                        <td>65折<br><span class="min-fee">最低 1元</span></td>
+                        <td>均 1元</td>
+                        <td>無</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="calc-wrapper">
+            <h2>即時手續費試算計算機</h2>
+            <div class="calc-grid">
+                <div class="input-group">
+                    <label for="stockCode">股票代號 (上市)</label>
+                    <input type="text" id="stockCode" value="2330">
+                    <button id="fetchBtn">抓取最新收盤價</button>
+                </div>
+                <div class="input-group">
+                    <label for="stockPrice">股價 (可手動修改)</label>
+                    <input type="number" id="stockPrice" step="0.01" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="tradeType">交易方式</label>
+                    <select id="tradeType">
+                        <option value="1000">整張 (單位: 張)</option>
+                        <option value="1">零股 (單位: 股)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="tradeQty">購買數量</label>
+                    <input type="number" id="tradeQty" value="1" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="brokerSelect">選擇券商</label>
+                    <select id="brokerSelect"></select>
+                </div>
+            </div>
+            <div class="result-box">
+                <div class="result-item">
+                    股票總市值 <span id="resCost">0</span>
+                </div>
+                <div class="result-item">
+                    預估手續費 <span id="resFee">0</span>
+                </div>
+                <div class="result-item">
+                    總交割金額 <span id="resTotal">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            * 實際優惠與手續費計算方式依各證券商官網最新公告為準。本表最後更新：2026年5月。<br>
+            <strong>&copy; 2026 資料彙總 BY 雪貓</strong>
+        </div>
+    </div>
+
+    <script>
+        const brokers = {
+            "新光證券": {d: 0.28, mg: 20, mo: 1},
+            "富邦證券": {d: 0.18, mg: 20, mo: 1},
+            "永豐金證券": {d: 0.20, mg: 20, mo: 1},
+            "統一證券": {d: 0.168, mg: 1, mo: 1},
+            "國泰證券": {d: 0.28, mg: 1, mo: 1},
+            "國票證券": {d: 0.28, mg: 20, mo: 1},
+            "台新證券": {d: 0.30, mg: 20, mo: 1},
+            "台銀證券": {d: 0.35, mg: 20, mo: 1},
+            "玉山證券": {d: 0.38, mg: 1, mo: 1},
+            "第一金證券": {d: 0.60, od: 0.18, mg: 1, mo: 1},
+            "凱基證券": {d: 0.60, mg: 20, mo: 20},
+            "元大證券": {d: 0.60, mg: 20, mo: 1},
+            "中國信託證": {d: 0.60, mg: 20, mo: 20},
+            "宏遠證券": {d: 0.65, mg: 1, mo: 1},
+            "華南永昌": {d: 0.65, mg: 1, mo: 1},
+            "群益證券": {d: 0.65, mg: 20, mo: 1}
+        };
+
+        const brokerSelect = document.getElementById('brokerSelect');
+        Object.keys(brokers).forEach(b => {
+            let opt = document.createElement('option');
+            opt.value = b;
+            opt.innerText = b;
+            brokerSelect.appendChild(opt);
+        });
+
+        function calculate() {
+            const price = parseFloat(document.getElementById('stockPrice').value) || 0;
+            const type = parseInt(document.getElementById('tradeType').value) || 1000;
+            const qty = parseInt(document.getElementById('tradeQty').value) || 0;
+            const brokerName = document.getElementById('brokerSelect').value;
+            const b = brokers[brokerName];
+            
+            const shares = type * qty;
+            const cost = price * shares;
+            let isOdd = shares < 1000;
+            let discount = isOdd && b.od ? b.od : b.d;
+            let minFee = isOdd ? b.mo : b.mg;
+            
+            let fee = Math.floor(cost * 0.001425 * discount);
+            if (fee < minFee && cost > 0) fee = minFee;
+            if (cost === 0) fee = 0;
+            
+            document.getElementById('resCost').innerText = Math.round(cost).toLocaleString();
+            document.getElementById('resFee').innerText = fee.toLocaleString();
+            document.getElementById('resTotal').innerText = Math.round(cost + fee).toLocaleString();
+        }
+
+        async function fetchPrice() {
+            const code = document.getElementById('stockCode').value.replace(/[^0-9]/g, '');
+            const btn = document.getElementById('fetchBtn');
+            if (!code) return;
+            
+            btn.innerText = "抓取中...";
+            btn.disabled = true;
+            
+            try {
+                const res = await fetch('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');
+                const data = await res.json();
+                const stock = data.find(s => s.Code === code);
+                
+                if (stock && stock.ClosingPrice) {
+                    document.getElementById('stockPrice').value = stock.ClosingPrice;
+                } else {
+                    alert('未找到該股票代號，可能是上櫃股票或代號錯誤，請手動輸入股價。');
+                }
+            } catch (err) {
+                alert('API 連線失敗，請手動輸入股價。');
+            }
+            
+            btn.innerText = "抓取最新收盤價";
+            btn.disabled = false;
+            calculate();
+        }
+
+        document.getElementById('fetchBtn').addEventListener('click', fetchPrice);
+        document.getElementById('stockPrice').addEventListener('input', calculate);
+        document.getElementById('tradeType').addEventListener('change', calculate);
+        document.getElementById('tradeQty').addEventListener('input', calculate);
+        document.getElementById('brokerSelect').addEventListener('change', calculate);
+
+        window.onload = fetchPrice;
+    </script>
+</body>
+</html>
