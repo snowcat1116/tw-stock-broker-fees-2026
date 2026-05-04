@@ -1,4 +1,4 @@
-<!-- 版權宣告：本網頁原始碼與資料彙總均由 雪貓 (Snowcat) 製作與維護，版權所有。 -->
+<!-- 版權宣告：本網頁原始碼與資料彙總均由 雪貓 (Syuemao) 製作與維護，版權所有。 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -15,6 +15,8 @@
     <meta property="og:type" content="website">
     <meta property="og:locale" content="zh_TW">
     <meta property="og:site_name" content="雪貓的投資工具箱">
+    
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
     
     <style>
         body {
@@ -381,10 +383,13 @@
 
         <div class="footer-info">
             * 實際優惠與手續費計算方式依各證券商官網最新公告為準。本表最後更新：2026年5月。<br>
-            <strong>&copy; 2026 資料彙總 BY 雪貓</strong>
+            唯一合法網址:https://syuemaostock.indevs.in<br>
+            由github託管，股價來源為TWSE 臺灣證券交易所<br>
+            <strong>&copy; 2026 資料彙總 BY 雪貓 Threads:syuemao_</strong>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     <script>
         const brokers = {
             "新光證券": {d: 0.28, mg: 20, mo: 1},
@@ -448,18 +453,30 @@
                 const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`;
                 const res = await fetch(proxyUrl);
                 if (!res.ok) {
-                    throw new Error(`伺服器回應錯誤，狀態碼: ${res.status}`);
+                    throw new Error(res.status);
                 }
                 const data = await res.json();
                 const stock = data.find(s => s.Code === code);
                 if (stock && stock.ClosingPrice) {
                     document.getElementById('stockPrice').value = stock.ClosingPrice;
                 } else {
-                    alert('未找到該股票代號，可能是上櫃股票或代號錯誤，請直接手動輸入股價。');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '找不到該股票',
+                        text: '可能是上櫃股票或代號錯誤，請直接手動輸入股價。',
+                        confirmButtonColor: '#1a3a5f',
+                        confirmButtonText: '我知道了'
+                    });
                 }
             } catch (err) {
-                console.error('API 抓取異常細節:', err);
-                alert('即時報價服務目前連線不穩定（可能是證交所阻擋了免費代理伺服器）。\n請直接手動輸入目前的股價！');
+                console.error(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: '報價連線不穩定',
+                    text: '目前無法自動抓取，請直接手動輸入目前的股價進行試算！',
+                    confirmButtonColor: '#e53e3e',
+                    confirmButtonText: '手動輸入'
+                });
             }
             btn.innerText = "抓取最新收盤價";
             btn.disabled = false;
