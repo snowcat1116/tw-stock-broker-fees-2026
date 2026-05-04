@@ -444,16 +444,19 @@
             btn.disabled = true;
             
             try {
-                const res = await fetch('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');
-                const data = await res.json();
+                const targetUrl = 'https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL';
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+                const res = await fetch(proxyUrl);
+                const proxyData = await res.json();
+                const data = JSON.parse(proxyData.contents);
                 const stock = data.find(s => s.Code === code);
-                
                 if (stock && stock.ClosingPrice) {
                     document.getElementById('stockPrice').value = stock.ClosingPrice;
                 } else {
                     alert('未找到該股票代號，可能是上櫃股票或代號錯誤，請手動輸入股價。');
                 }
             } catch (err) {
+                console.error('Fetch Error:', err);
                 alert('API 連線失敗，請手動輸入股價。');
             }
             
