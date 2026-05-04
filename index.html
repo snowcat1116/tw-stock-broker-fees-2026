@@ -5,19 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>2026 台灣券商手續費比較表 - BY 雪貓</title>
-    
     <meta name="description" content="2026年最新台灣主要券商手續費、零股交易與定期定額買入優惠對比總表。由雪貓(Snowcat)彙總整理，幫助投資人快速找到最划算的開戶方案。內建即時股價手續費計算機。">
     <meta name="keywords" content="券商手續費, 台灣券商, 零股交易, 定期定額, 股票開戶, 手續費計算機, 2026券商, 新光證券, 富邦證券, 永豐大戶投, 雪貓">
     <meta name="author" content="雪貓 (Snowcat)">
-    
     <meta property="og:title" content="2026 台灣券商手續費比較表 - BY 雪貓">
     <meta property="og:description" content="幫你整理好2026最新台股券商手續費折扣！內建即時股價抓取與手續費精算機。">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="zh_TW">
     <meta property="og:site_name" content="雪貓的投資工具箱">
-    
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
-    
     <style>
         body {
             font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
@@ -64,6 +60,9 @@
             margin-bottom: 20px;
             letter-spacing: 1px;
             box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+        }
+        .scroll-hint {
+            display: none;
         }
         .table-responsive {
             width: 100%;
@@ -198,11 +197,25 @@
             border-top: 1px solid #e2e8f0;
             padding-top: 15px;
         }
+        @keyframes swipeMotion {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(8px); }
+        }
         @media (max-width: 768px) {
             body { padding: 10px; }
             .container { padding: 15px; border-radius: 8px; }
             h1 { font-size: 24px; }
             p.subtitle { font-size: 16px; }
+            .scroll-hint {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                color: #3b82f6;
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 8px;
+                animation: swipeMotion 1.5s ease-in-out infinite;
+            }
             table { font-size: 16px; }
             .broker-name { font-size: 18px; }
             th, td { padding: 12px 8px; }
@@ -219,6 +232,9 @@
             <p class="subtitle">一般交易 / 零股交易 / 定期定額 專業客戶參考手冊</p>
         </header>
         
+        <div class="scroll-hint">
+            👉 左右滑動查看完整表格
+        </div>
         <div class="table-responsive">
             <table>
                 <thead>
@@ -385,7 +401,6 @@
             * 實際優惠與手續費計算方式依各證券商官網最新公告為準。本表最後更新：2026年5月。<br>
             唯一合法網址:https://syuemaostock.indevs.in<br>
             由github託管，股價來源為TWSE 臺灣證券交易所<br>
-            如有更新可以到Threads聯繫；暑假可以找窩開戶唷<br>
             <strong>&copy; 2026 資料彙總 BY 雪貓 Threads:syuemao_</strong>
         </div>
     </div>
