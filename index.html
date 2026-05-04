@@ -445,21 +445,22 @@
             
             try {
                 const targetUrl = 'https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL';
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+                const proxyUrl = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`;
                 const res = await fetch(proxyUrl);
-                const proxyData = await res.json();
-                const data = JSON.parse(proxyData.contents);
+                if (!res.ok) {
+                    throw new Error(`伺服器回應錯誤，狀態碼: ${res.status}`);
+                }
+                const data = await res.json();
                 const stock = data.find(s => s.Code === code);
                 if (stock && stock.ClosingPrice) {
                     document.getElementById('stockPrice').value = stock.ClosingPrice;
                 } else {
-                    alert('未找到該股票代號，可能是上櫃股票或代號錯誤，請手動輸入股價。');
+                    alert('未找到該股票代號，可能是上櫃股票或代號錯誤，請直接手動輸入股價。');
                 }
             } catch (err) {
-                console.error('Fetch Error:', err);
-                alert('API 連線失敗，請手動輸入股價。');
+                console.error('API 抓取異常細節:', err);
+                alert('即時報價服務目前連線不穩定（可能是證交所阻擋了免費代理伺服器）。\n請直接手動輸入目前的股價！');
             }
-            
             btn.innerText = "抓取最新收盤價";
             btn.disabled = false;
             calculate();
